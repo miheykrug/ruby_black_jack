@@ -1,11 +1,12 @@
 class Player
-  attr_accessor :cards
+  attr_accessor :cards, :open_cards, :bank, :name
 
   def initialize(name)
     @name = name
     @bank = 100
     @cards = []
     @points = 0
+    @open_cards = false
   end
 
   def sum_points
@@ -23,5 +24,11 @@ class Player
     value = card.to_i
     return value if value > 0
     card[0] == 'A' ? 11 : 10
+  end
+
+  def show_cards
+    puts "Карты #{name}"
+    cards.each { |card| print "[#{card}]"}
+    puts sum_points
   end
 end
