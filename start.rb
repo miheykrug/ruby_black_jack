@@ -1,5 +1,5 @@
-require_relative "player"
-require_relative "game"
+require_relative 'player'
+require_relative 'game'
 
 # pl = Player.new("fsaf")
 # g = Game.new
@@ -12,7 +12,6 @@ require_relative "game"
 # # system('reset')
 # # puts `clear`
 # puts "Очистил!!!"
-
 
 game = Game.new
 game.game
