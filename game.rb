@@ -1,6 +1,6 @@
 class Game
   BET = 10
-  PLAYER_BANK = 100
+  PLAYER_BANK = 20
 
   attr_accessor :bank, :deck, :player, :dealer
 
@@ -19,7 +19,7 @@ class Game
   end
 
   def give_card(player)
-    player.cards << deck.cards.delete(deck.cards[0]) if player.cards.length < 3
+    player.cards << deck.cards.shift if player.cards.length < 3
   end
 
   def bet
@@ -40,7 +40,7 @@ class Game
   end
 
   def round_winner
-    if sum_points(player) > 21 && sum_points(dealer) > 21 # || (sum_points(player) == sum_points(dealer))
+    if sum_points(player) > 21 && sum_points(dealer) > 21
       nil
     elsif sum_points(player) > 21
       dealer
