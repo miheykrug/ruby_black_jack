@@ -1,20 +1,12 @@
-class Game
+module Game
   BET = 10
-  PLAYER_BANK = 100
-
-  attr_accessor :bank, :deck, :player, :dealer
-
-  def initialize(player, dealer)
-    @player = player
-    @dealer = dealer
-  end
+  PLAYER_BANK = 20
 
   def set_starting_values
     player.bank = dealer.bank = PLAYER_BANK
   end
 
   def first_deal
-    puts `clear`
     2.times do
       give_card(player)
       give_card(dealer)
