@@ -1,13 +1,16 @@
 class Game
   BET = 10
-  PLAYER_BANK = 20
+  PLAYER_BANK = 100
 
   attr_accessor :bank, :deck, :player, :dealer
 
   def initialize(player, dealer)
     @player = player
     @dealer = dealer
-    @player.bank = @dealer.bank = PLAYER_BANK
+  end
+
+  def set_starting_values
+    player.bank = dealer.bank = PLAYER_BANK
   end
 
   def first_deal
@@ -22,7 +25,7 @@ class Game
     player.cards << deck.cards.shift if player.cards.length < 3
   end
 
-  def bet
+  def take_bets
     self.bank = BET * 2
     player.bank -= BET
     dealer.bank -= BET

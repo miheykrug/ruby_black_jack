@@ -10,12 +10,14 @@ class View
   end
 
   def show_steps_inf(player, player_points, dealer)
+    puts `clear`
     show_cards(player)
     show_points(player_points)
     hide_cards(dealer)
   end
 
   def show_end_round_inf(player, player_points, dealer, dealer_points, round_winner)
+    puts `clear`
     show_cards(player)
     show_points(player_points)
     show_cards(dealer)
@@ -40,7 +42,7 @@ class View
 
   def ask_new_game
     line
-    puts 'Хотите сыграть заново? y/n'
+    puts 'Хотите начать Новую игру? y/n'
     puts '- для продолжения сделайте любой ввод'
     puts '- для выхода введите "n"'
     gets.chomp.downcase
@@ -71,6 +73,10 @@ class View
 
   def show_bank(player)
     puts "Банк #{player.name}: #{player.bank}"
+  end
+
+  def invalid_input
+    puts 'Неверный ввод'
   end
 
   def line

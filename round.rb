@@ -1,28 +1,22 @@
 class Round
   def initialize(game)
     @game = game
+    @view = View.new
+    @player = game.player
+    @dealer = game.dealer
+    set_starting_values
   end
 
   def run_round
-    self.view = View.new
-    self.player = game.player
-    self.dealer = game.dealer
-    loop do
-      set_starting_values
-      game.first_deal
-      game.bet
-      view.show_steps_inf(player, game.sum_points(player), dealer)
-      round_steps
-      game.give_bank
-      puts `clear`
-      view.show_end_round_inf(player,
-                              game.sum_points(player),
-                              dealer,
-                              game.sum_points(dealer),
-                              game.round_winner)
-      break if game.game_winner
-      break if view.ask_new_round == 'n'
-    end
+    game.first_deal
+    game.take_bets
+    view.show_steps_inf(player, game.sum_points(player), dealer)
+    round_steps
+    game.give_bank
+    player_points = game.sum_points(player)
+    dealer_points = game.sum_points(dealer)
+    winner = game.round_winner
+    view.show_end_round_inf(player, player_points, dealer, dealer_points, winner)
   end
 
   private
@@ -35,7 +29,6 @@ class Round
       view.player_step_puts(game.player.name).each { |str| puts str }
       player_step
       dealer_step
-      puts `clear`
       view.show_steps_inf(player, game.sum_points(player), dealer)
       break if player.open_cards && dealer.open_cards
     end
@@ -64,7 +57,7 @@ class Round
         player.open_cards = true
         break
       else
-        puts 'Неверный ввод'
+        view.invalid_input
       end
     end
   end

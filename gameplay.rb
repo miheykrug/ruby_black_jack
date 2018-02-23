@@ -1,19 +1,30 @@
 class Gameplay
-  def run_game
-    self.dealer = Dealer.new
-    self.player = Player.new
-    self.view = View.new
-    player.name = view.new_player
+  def initialize
+    @dealer = Dealer.new
+    @player = Player.new
+    @view = View.new
+    @game = Game.new(player, dealer)
+  end
 
+  def run_game
+    player.name = view.new_player
     loop do
-      self.game = Game.new(player, dealer)
-      Round.new(game).run_round
+      game.set_starting_values
+      game_rounds
       view.show_game_result(game.game_winner.name) if game.game_winner
       break if view.ask_new_game == 'n'
     end
   end
 
+  def game_rounds
+    loop do
+      Round.new(game).run_round
+      break if game.game_winner
+      break if view.ask_new_round == 'n'
+    end
+  end
+
   private
 
-  attr_accessor :game, :player, :dealer, :view
+  attr_reader :game, :player, :dealer, :view
 end
